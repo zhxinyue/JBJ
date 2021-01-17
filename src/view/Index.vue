@@ -3,17 +3,17 @@
     <!-- 公共头部 -->
     <header-wrap></header-wrap>
     <!-- 首页内容 -->
-    <div class="index_content">
+    <div class="content_wrap">
       <!-- 轮播图 -->
       <el-carousel height="725px">
         <el-carousel-item v-for="item in 4" :key="item">
-          <img src="../assets/img/banner1.png" alt="" class="img_class" />
+          <img src="../assets/img/banner1.png" alt="" class="data_img" />
         </el-carousel-item>
       </el-carousel>
       <!-- 推荐产品 -->
       <div class="recommend_wrap">
         <div class="left_product">
-          <img src="../assets/img/img1.png" alt="" class="img_class" />
+          <img src="../assets/img/img1.png" alt="" class="data_img" />
         </div>
         <div class="right_product">
           <img src="../assets/img/img2.png" alt="" class="img_pro_class" />
@@ -108,14 +108,9 @@ export default {
 };
 </script>
 <style>
-.index_content {
-  padding: 0 55px;
-}
 
-.img_class {
-  width: 100%;
-  height: 100%;
-}
+
+
 .recommend_wrap {
   width: 100%;
   height: 740px;
@@ -190,10 +185,7 @@ export default {
   box-sizing: border-box;
   border: 1px solid #f2f2f2;
 }
-.data_img {
-  width: 100%;
-  height: 100%;
-}
+
 .minimg_wrap {
   width: 100%;
   height: 40px;
