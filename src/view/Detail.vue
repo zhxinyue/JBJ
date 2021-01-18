@@ -67,12 +67,42 @@
           </div>
           <!-- 加入购物车 -->
           <div class="cart_div">
-             <el-input-number v-model="num" controls-position="right" @change="handleChange" :min="1" :max="10"></el-input-number>
-           <img src="../assets/img/xin.png" alt="" class="xin_img">
+            <el-input-number
+              v-model="num"
+              controls-position="right"
+              @change="handleChange"
+              :min="1"
+              :max="10"
+            ></el-input-number>
+            <img src="../assets/img/xin.png" alt="" class="xin_img" />
             <el-button>Add to Cart</el-button>
           </div>
           <!-- 购买 -->
           <el-button class="buy_btn">Buy Now</el-button>
+        </div>
+        <div class="right_wrap">
+          <div class="right_content">
+            <img src="../assets/img/icon2.png" alt="" class="icon_img" />
+            <div class="right_con_div">
+              <h5>SHIPPING</h5>
+              <span>Via DHL 5-7 DAY Arrived</span>
+            </div>
+          </div>
+          <div class="right_content">
+            <img src="../assets/img/icon2.png" alt="" class="icon_img" />
+            <div class="right_con_div">
+              <h5>MONEY BACKGUARANTEE</h5>
+              <span>money back guarantee.</span>
+            </div>
+          </div>
+
+          <!-- 轮播图 -->
+      <el-carousel height="200px">
+        <el-carousel-item v-for="item in 4" :key="item">
+          <img src="../assets/img/banner1.png" alt="" class="data_img" />
+        </el-carousel-item>
+      </el-carousel>
+
         </div>
       </div>
       <!-- 更多推荐 -->
@@ -116,17 +146,18 @@
       </div>
       <!-- 产品描述 -->
       <div class="product_dec_wrap">
-<div class="dec_type">
-<p class="dec_type_p active">Description</p>
-<p class="dec_type_p">Size Chart</p>
-<p class="dec_type_p">Reviews</p>
-</div>
-<div class="dec_content">
-JiaBinjiWomen'sClearPumpsPointedToeTransparent HighHeelsWeddingShoesForWomenStilettoHeels 
-</div>
-<div class="dec_img">
-<img src="../assets/img/img4.png" alt="" class="data_img">
-</div>
+        <div class="dec_type">
+          <p class="dec_type_p active">Description</p>
+          <p class="dec_type_p">Size Chart</p>
+          <p class="dec_type_p">Reviews</p>
+        </div>
+        <div class="dec_content">
+          JiaBinjiWomen'sClearPumpsPointedToeTransparent
+          HighHeelsWeddingShoesForWomenStilettoHeels
+        </div>
+        <div class="dec_img">
+          <img src="../assets/img/img4.png" alt="" class="data_img" />
+        </div>
       </div>
     </div>
 
@@ -156,21 +187,20 @@ export default {
         },
       ],
       value: "",
-       num: 1
+      num: 1,
     };
   },
   methods: {
     handleClick(tab, event) {
       console.log(tab, event);
-    }, 
+    },
     handleChange(value) {
-        console.log(value);
-      }
+      console.log(value);
+    },
   },
 };
 </script>
 <style>
-
 .content_wrap .el-breadcrumb {
   height: 54px;
   line-height: 54px;
@@ -290,29 +320,31 @@ export default {
   height: 40px;
   margin: 15px 0 20px;
 }
-.cart_div .el-input-number{
-  width:80px;
-  height:40px;
+.cart_div .el-input-number {
+  width: 80px;
+  height: 40px;
 }
-.cart_div .el-input-number__decrease, .cart_div .el-input-number__increase{
-  width:30px;
-  height:20px;
-  border:1px solid #DCDFE6;
+.cart_div .el-input-number__decrease,
+.cart_div .el-input-number__increase {
+  width: 30px;
+  height: 20px;
+  border: 1px solid #dcdfe6;
   box-sizing: border-box;
 }
-.cart_div .el-input-number.is-controls-right .el-input-number__decrease{
-  border-right:1px solid #DCDFE6;
+.cart_div .el-input-number.is-controls-right .el-input-number__decrease {
+  border-right: 1px solid #dcdfe6;
 }
 
-.cart_div .el-input-number .el-input__inner{
+.cart_div .el-input-number .el-input__inner {
   padding: 0;
-  width:50px;
+  width: 50px;
   text-align: center;
-  color:#FF2900;
+  color: #ff2900;
 }
-.xin_img{
-  width:30px;height:25px;
-  margin-left:10px;
+.xin_img {
+  width: 30px;
+  height: 25px;
+  margin-left: 10px;
 }
 .cart_div .el-button {
   width: 440px;
@@ -329,6 +361,41 @@ export default {
   background: #ffc44d;
   font-size: 20px;
   color: #2d9cdb;
+}
+.right_wrap {
+  width: 520px;
+  height: 710px;
+  float: right;
+  position: relative;
+}
+.right_content {
+  width: 520px;
+  height: 56px;
+  margin-bottom: 30px;
+}
+.icon_img {
+  width: 56px;
+  height: 56px;
+  float: left;
+  margin-right: 15px;
+}
+.right_con_div {
+  float: left;
+}
+.right_con_div h5 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.right_con_div span {
+  font-size: 18px;
+}
+.right_wrap .el-carousel{
+position: absolute;
+bottom:0;
+left:0;
+width:100%;
+
 }
 .recommend_div {
   border-top: 1px solid #f3f2f2;
@@ -414,8 +481,8 @@ export default {
   -webkit-box-orient: vertical;
   margin-top: 20px;
 }
-.product_detail{
-  background: #FFFDFD;
+.product_detail {
+  background: #fffdfd;
   margin-bottom: 20px;
 }
 .product_detail p {
@@ -428,39 +495,39 @@ export default {
   font-size: 18px;
   font-weight: normal;
 }
-.product_dec_wrap{
+.product_dec_wrap {
   border: 1px solid #cfcece;
-box-sizing: border-box;
+  box-sizing: border-box;
 }
-.dec_type{
-  height:45px;
+.dec_type {
+  height: 45px;
 }
-.dec_type_p{
-  width:145px;
-  height:45px;
+.dec_type_p {
+  width: 145px;
+  height: 45px;
   text-align: center;
   line-height: 45px;
-  margin-right:2px;
-  background: #FFE4E4;
-  color: #EB5757;
+  margin-right: 2px;
+  background: #ffe4e4;
+  color: #eb5757;
   font-size: 22px;
   box-sizing: border-box;
   float: left;
 }
-.dec_type_p.active{
-  background: #FFFDFD;
+.dec_type_p.active {
+  background: #fffdfd;
   font-weight: bold;
-  border-top:3px solid #EB5757;
+  border-top: 3px solid #eb5757;
 }
-.dec_content{
-  width:780px;
+.dec_content {
+  width: 780px;
   margin: 70px auto;
   text-align: center;
   font-size: 24px;
 }
-.dec_img{
-  width:1200px;
-  height:1200px;
+.dec_img {
+  width: 1200px;
+  height: 1200px;
   margin: 50px auto;
 }
 </style>
