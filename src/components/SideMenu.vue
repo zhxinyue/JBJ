@@ -1,5 +1,7 @@
 <template>
  <div class="sidebar">
+   <img src="../assets/img/icon3.png" alt="" class="personal_icon_img">
+   <h2 class="personal_name">NAME</h2>
       <el-menu class="sidebar-el-menu" default-active="1" :collapse="collapse" unique-opened router
              collapse-transition text-color="#4F4F4F">
       <template v-for="item in items" >
@@ -8,6 +10,7 @@
           </el-menu-item>
       </template>
     </el-menu>
+
 
  </div>
 </template>
@@ -38,14 +41,29 @@
 <style>
 .sidebar{
     width:260px;
-     position: absolute;
-  left:0;
-  top:0;
+  background: #F8FAFA;
+  float: left;
+  padding-bottom:200px;
+}
+.sidebar .el-menu{
+   background: #F8FAFA;
 }
 .sidebar .el-menu-item, .sidebar .el-submenu__title{
     height:60px;
     font-size: 20px;
     text-align: center;
     font-weight: bold;
+}
+.personal_icon_img{
+  width:150px;
+  height:150px;
+  display: block;
+margin: 30px auto 0;
+}
+.personal_name{
+  height:80px;
+  line-height: 80px;
+  font-size: 18px;
+  text-align: center;
 }
 </style>

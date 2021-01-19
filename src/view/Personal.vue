@@ -10,15 +10,13 @@
       </el-breadcrumb>
        <!-- 个人中心内容 -->
    <div class="personal_content clearfix">
+     <div class="content" >
+      <router-view></router-view>  
+    </div>
 <!-- 侧边导航 -->
 <sidebar-wrap></sidebar-wrap>
 
-<div class="content" >
-      <transition name="move" mode="out-in">
-      <!--这里的router-view用来渲染子页面-->
-      <router-view></router-view>  
-      </transition>
-    </div>
+
 
 
    </div>
@@ -63,17 +61,14 @@ export default {
 }
 .personal_content{
   width:100%;
-  min-height:600px;
+  min-height:1000px;
   background: #F2F2F2;
-  position: relative;
+  
 }
 .content{
   width:1540px;
-  /* float: left; */
-  position: absolute;
-  left:320px;
-  top:0;
-  background: red;
+  float: right;
+  margin-right:60px;
 }
 
 </style>
