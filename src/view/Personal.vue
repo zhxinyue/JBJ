@@ -54,8 +54,8 @@ export default {
   line-height: 54px;
   font-size: 14px;
   color: #5d5d5f;
-  border-top: 1px solid #f3f2f2;
-  border-bottom: 1px solid #f3f2f2;
+  border-top: 1px solid #dfdddd;
+  border-bottom: 1px solid #dfdddd;
   background: #F2F2F2;
   padding: 0 55px;
 }
