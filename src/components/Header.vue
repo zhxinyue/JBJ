@@ -3,7 +3,7 @@
     <div class="header_bg"></div>
     <div class="header_content">
       <div class="logo_wrap">
-        <img src="../assets/img/JBJ.png" alt="logo" class="logo_img" />
+        <img src="../assets/img/logo.png" alt="logo" class="logo_img" />
         <img src="../assets/img/JBJ.png" alt="logo" class="logo_img1" />
       </div>
 
@@ -12,7 +12,7 @@
       <!-- 搜索 -->
       <div class="search_wrap">
         <input type="text" name="" id="" class="search_ipt" />
-        <img src="" alt="" class="search_img" />
+        <img src="../assets/img/search.png" alt="" class="search_img" />
       </div>
       <!-- 导航 -->
       <div class="nav_wrap">
@@ -74,7 +74,7 @@ export default {
 }
 .logo_img {
   float: left;
-  width: 90px;
+  width: 65px;
   height: 70px;
   margin-top: 25px;
   margin-right: 20px;
@@ -115,11 +115,11 @@ export default {
   border: 0;
 }
 .search_img {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   position: absolute;
   right: 8px;
-  top: 5px;
+  top: 3px;
 }
 .nav_wrap {
   float: right;

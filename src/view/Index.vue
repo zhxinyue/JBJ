@@ -184,6 +184,7 @@ export default {
   height: 400px;
   box-sizing: border-box;
   border: 1px solid #f2f2f2;
+  padding: 75px;
 }
 
 .minimg_wrap {
