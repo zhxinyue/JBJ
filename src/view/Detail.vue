@@ -469,6 +469,7 @@ width:100%;
   width: 100%;
   height: 40px;
   line-height: 20px;
+   font-size: 16px;
   word-wrap: break-word;
   white-space: normal;
   word-break: break-all;

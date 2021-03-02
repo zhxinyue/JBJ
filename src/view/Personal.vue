@@ -63,7 +63,7 @@ export default {
   width:100%;
   min-height:1000px;
   background: #F2F2F2;
-  
+  padding-bottom:100px;
 }
 .content{
   width:1540px;

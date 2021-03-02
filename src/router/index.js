@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Index from '@/view/Index'
 import Detail from '@/view/Detail'
 import Personal from '@/view/Personal'
+import Register from '@/view/Register'
+import Login from '@/view/Login'
 import Account from "@/components/page/Account"
 import Order from "@/components/page/Order"
 import Wishlist from "@/components/page/Wishlist"
@@ -20,6 +22,16 @@ export default new Router({
   path:'/detail',
   name:'Detail',
   component:Detail
+},
+{
+  path:'/register',
+  name:'Register',
+  component:Register
+},
+{
+  path:'/login',
+  name:'login',
+  component:Login
 },
 {
   path:'/personal',
