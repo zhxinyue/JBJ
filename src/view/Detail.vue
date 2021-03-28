@@ -121,6 +121,7 @@
               <img src="../assets/img/img5.png" alt="" class="data_min_img" />
               <img src="../assets/img/img5.png" alt="" class="data_min_img" />
               <img src="../assets/img/img5.png" alt="" class="data_min_img" />
+              <img src="../assets/img/img5.png" alt="" class="data_min_img" />
             </div>
             <div class="data_money">
               <span class="present_price">$50.00</span>
@@ -410,15 +411,15 @@ width:100%;
   color: #4f4f4f;
 }
 .recommend_wrap {
-  width: 1720px;
+  width: 1800px;
   height: 400px;
   margin: 0 auto;
 }
 .recommend_pro {
   float: left;
-  width: 250px;
+  width: 280px;
   height: 400px;
-  margin-right: 44px;
+  margin-right: 24px;
   border: 1px solid #88c6c6;
   box-shadow: 0px 6px 5px rgba(165, 218, 218, 0.46);
   border-radius: 5px;
@@ -431,6 +432,8 @@ width:100%;
 .rec_img {
   width: 200px;
   height: 200px;
+  display: block;
+  margin: 0 auto;
 }
 .recommend_pro .minimg_wrap {
   width: 100%;
@@ -441,10 +444,10 @@ width:100%;
   width: 30px;
   height: 30px;
   float: left;
-  margin-right: 10px;
+  margin-right: 8px;
   box-sizing: border-box;
 }
-.recommend_pro .data_min_img:nth-of-type(5n) {
+.recommend_pro .data_min_img:nth-of-type(6n) {
   margin-right: 0;
 }
 .recommend_pro .data_min_img.active {

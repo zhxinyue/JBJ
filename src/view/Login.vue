@@ -13,7 +13,7 @@
             through the checkout process faster, store multiple shipping
             addresses, view and track your orders in your account and more.
           </div>
-          <div class="wrap_btn">Create An Account</div>
+          <div class="wrap_btn" @click="toReg()">Create An Account</div>
         </div>
         <div class="wrap right">
           <div class="wrap_title">REGISTERED CUSTOMERS</div>
@@ -92,6 +92,10 @@ export default {
     },
     goBack() {
       this.$router.go(-1); //返回上一层
+    },
+    // 注册
+    toReg(){
+      this.$router.push({path:'/register'})
     },
   },
 };
@@ -213,5 +217,6 @@ margin-top:20px;
   left:302px;
    border: none;
    padding:0;
+   cursor: pointer;
 }
 </style>

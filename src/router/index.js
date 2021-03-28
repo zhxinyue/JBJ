@@ -5,6 +5,7 @@ import Detail from '@/view/Detail'
 import Personal from '@/view/Personal'
 import Register from '@/view/Register'
 import Login from '@/view/Login'
+import Special from '@/view/Special'
 import Account from "@/components/page/Account"
 import Order from "@/components/page/Order"
 import Wishlist from "@/components/page/Wishlist"
@@ -30,8 +31,13 @@ export default new Router({
 },
 {
   path:'/login',
-  name:'login',
+  name:'Login',
   component:Login
+},
+{
+  path:'/special',
+  name:'Special',
+  component:Special
 },
 {
   path:'/personal',

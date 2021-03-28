@@ -16,8 +16,7 @@
           <img src="../assets/img/img1.png" alt="" class="data_img" />
         </div>
         <div class="right_product">
-          <img src="../assets/img/img2.png" alt="" class="img_pro_class" />
-          <img src="../assets/img/img2.png" alt="" class="img_pro_class" />
+          <img src="../assets/img/img2.png" alt="" class="img_pro_class1" />
           <img
             src="../assets/img/img2.png"
             alt=""
@@ -100,11 +99,30 @@ export default {
       activeName: "first",
     };
   },
+  created(){
+    
+  },
+  
   methods: {
     handleClick(tab, event) {
       console.log(tab, event);
     },
+   
   },
+  mounted() {
+    // 存cookie guid
+     if (this.$cookies.get("guid") == null) {
+                this.$cookies.set("guid", this.NewGuid(),'30d')
+            }
+  // 获取banner
+this.$api.GetBanner({  
+		ReqFunc:"GetBanner",
+		ReqCode:''
+	}).then(res => console.log(res)).catch(err => console.log(err))
+
+
+
+  }
 };
 </script>
 <style>
@@ -130,6 +148,11 @@ export default {
   width: 430px;
   height: 360px;
 }
+.img_pro_class1 {
+  width: 890px;
+  height: 360px;
+}
+
 .img_pro_class2 {
   margin-top: 20px;
 }

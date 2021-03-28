@@ -8,7 +8,7 @@
       </div>
 
       <!-- 未登录 -->
-      <el-button class="login_btn">LOG IN</el-button>
+      <el-button class="login_btn" @click="toLogin()">LOG IN</el-button>
       <!-- 搜索 -->
       <div class="search_wrap">
         <input type="text" name="" id="" class="search_ipt" />
@@ -51,6 +51,10 @@ export default {
   methods: {
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
+    },
+    // 登录
+    toLogin(){
+      this.$router.push({path:'/login'})
     },
   },
 };
