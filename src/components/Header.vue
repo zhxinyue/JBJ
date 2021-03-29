@@ -8,7 +8,7 @@
       </div>
 
       <!-- 未登录 -->
-      <el-button class="login_btn" @click="toLogin()">LOG IN</el-button>
+      <el-button class="login_btn" @click="toLogin()" v-if="showFlag">LOG IN</el-button>
       <!-- 搜索 -->
       <div class="search_wrap">
         <input type="text" name="" id="" class="search_ipt" />
@@ -46,7 +46,13 @@ export default {
     return {
       activeIndex: "1",
       activeIndex2: "1",
+      showFlag:true
     };
+  },
+  created(){
+   if (this.Plugins.getItem("buyerData")) {
+                this.showFlag = false
+            }
   },
   methods: {
     handleSelect(key, keyPath) {

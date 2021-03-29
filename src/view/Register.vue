@@ -13,10 +13,10 @@
         class="demo-ruleForm clearfix"
       >
         <el-row class="mar_bom">PERSONAL INFORMATION</el-row>
-        <el-form-item label="First Name" prop="uesername">
+        <el-form-item label="First Name" prop="firstname">
           <el-input v-model="ruleForm.firstname"></el-input>
         </el-form-item>
-        <el-form-item label="Last Name" prop="uesername" class="nomar">
+        <el-form-item label="Last Name" prop="lastname" class="nomar">
           <el-input v-model="ruleForm.lastname"></el-input>
         </el-form-item>
         <el-form-item label="Email Address" prop="email">
@@ -24,11 +24,11 @@
         </el-form-item>
         <el-row class="clear mar_bom">LOGIN INFORMATION</el-row>
         <el-form-item label="Password" prop="pass">
-          <el-input v-model="ruleForm.pass"></el-input>
+          <el-input type="password" v-model="ruleForm.pass"></el-input>
         </el-form-item>
 
         <el-form-item label="Confirm Password" prop="checkpass" class="nomar">
-          <el-input v-model="ruleForm.checkpass"></el-input>
+          <el-input type="password" v-model="ruleForm.checkpass"></el-input>
         </el-form-item>
 
         <el-row class="clear required_fields">* Required Fields</el-row>
@@ -52,6 +52,7 @@
 <script>
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+// import { returnCitySN } from 'https://pv.sohu.com/cityjson?ie=utf-8'
 export default {
   name: "Register",
   components: {
@@ -69,7 +70,12 @@ export default {
         checkpass: "",
       },
       rules: {
-        uesername: [{ required: true, message: "请输入活动名称", trigger: "blur" }],
+        firstname: [
+          { required: true, message: "请输入活动名称", trigger: "blur" },
+        ],
+        lastname: [
+          { required: true, message: "请输入活动名称", trigger: "blur" },
+        ],
         email: [
           { required: true, message: "请输入邮箱地址", trigger: "blur" },
           {
@@ -81,15 +87,49 @@ export default {
         pass: [{ required: true, message: "请输入密码", trigger: "blur" }],
         checkpass: [{ required: true, message: "请输入密码", trigger: "blur" }],
       },
+      returnCitySN: {},
     };
   },
+  beforeMount() {
+    require(["https://pv.sohu.com/cityjson?ie=utf-8"], () => {
+      setTimeout(() => {
+        if (returnCitySN) {
+          this.returnCitySN = returnCitySN;
+          console.log(returnCitySN);
+        } else {
+        }
+      }, 1500);
+    });
+  },
   methods: {
-   
     submitForm(formName) {
-      console.log(formName)
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert("submit!");
+          if (this.ruleForm.pass != this.ruleForm.checkpass) {
+            //判断密码
+            this.$message({
+              message: "两次密码不一致！",
+              type: "warning",
+            });
+            return;
+          }
+          // 买家注册
+          this.$api
+            .BuyerRegister({
+              ReqFunc: "BuyerRegister",
+              ReqFName: this.ruleForm.firstname,
+              ReqLName: this.ruleForm.lastname,
+              ReqEmail: this.ruleForm.email,
+              ReqPassWord: this.ruleForm.pass,
+              ReqSpread: "0",
+              ReqAddress: this.returnCitySN.cname,
+              ReqIP: this.returnCitySN.cip,
+            })
+            .then((res) => {
+              this.Plugins.setItem("guid",res)
+              this.$router.push({path:'/'})
+            })
+            .catch((err) => console.log(err));
         } else {
           console.log("error submit!!");
           return false;
@@ -97,9 +137,9 @@ export default {
       });
     },
 
-  //返回上一层
+    //返回上一层
     goBack() {
-      this.$router.go(-1); 
+      this.$router.go(-1);
     },
   },
 };

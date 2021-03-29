@@ -24,11 +24,12 @@
         label-width="100px"
         class="demo-ruleForm clearfix"
       >
-        <el-form-item label="Email Address" prop="name">
-          <el-input v-model="ruleForm.name"></el-input>
+       
+        <el-form-item label="Email Address" prop="email">
+          <el-input v-model="ruleForm.email"></el-input>
         </el-form-item>
-        <el-form-item label="Password" prop="name">
-          <el-input v-model="ruleForm.name"></el-input>
+         <el-form-item label="Password" prop="pass">
+          <el-input type="password" v-model="ruleForm.pass"></el-input>
         </el-form-item>
 
         <el-row class="clear required_fields">* Required Fields</el-row>
@@ -62,16 +63,34 @@ export default {
   data() {
     return {
       activeName: "first",
-      ruleForm: {
-        name: "",
+       ruleForm: {
+        email: "",
+        pass: "",
+        returnCitySN: {},
       },
       rules: {
-        name: [
-          { required: true, message: "请输入活动名称", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" },
+        email: [
+          { required: true, message: "请输入邮箱地址", trigger: "blur" },
+          {
+            type: "email",
+            message: "请输入正确的邮箱地址",
+            trigger: ["blur", "change"],
+          },
         ],
+        pass: [{ required: true, message: "请输入密码", trigger: "blur" }],
       },
     };
+  },
+  beforeMount() {
+    require(["https://pv.sohu.com/cityjson?ie=utf-8"], () => {
+      setTimeout(() => {
+        if (returnCitySN) {
+          this.returnCitySN = returnCitySN;
+          console.log(returnCitySN);
+        } else {
+        }
+      }, 1500);
+    });
   },
   methods: {
     handleClick(tab, event) {
@@ -80,7 +99,33 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert("submit!");
+          // 买家登录
+          this.$api
+            .BuyerLogin({
+              ReqFunc:"BuyerLogin",
+	ReqEmail:this.ruleForm.email,
+	ReqPassWord:this.ruleForm.pass,
+ReqAddress: this.returnCitySN.cname,
+              ReqIP: this.returnCitySN.cip,
+             
+            })
+            .then((res) => {
+              if(res==-1){
+              this.$message({
+                message: "登录信息输入错误！",
+                type: "warning",
+              });
+            return;
+              }
+              this.Plugins.setItem("buyerData",res)
+              this.$router.push({path:'/'})
+            })
+            .catch((err) => {
+              this.$message({
+                message: "重新登录！",
+                type: "warning",
+              });
+            });
         } else {
           console.log("error submit!!");
           return false;

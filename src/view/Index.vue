@@ -100,7 +100,6 @@ export default {
     };
   },
   created(){
-    
   },
   
   methods: {
@@ -111,9 +110,10 @@ export default {
   },
   mounted() {
     // 存cookie guid
-     if (this.$cookies.get("guid") == null) {
-                this.$cookies.set("guid", this.NewGuid(),'30d')
-            }
+    //  if (this.$cookies.get("guid") == null) {
+    //             this.$cookies.set("guid", this.NewGuid(),'30d')
+    //             this.$router.push({path:'/'})
+    //         }
   // 获取banner
 this.$api.GetBanner({  
 		ReqFunc:"GetBanner",

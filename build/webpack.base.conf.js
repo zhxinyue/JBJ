@@ -3,7 +3,7 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
-
+const requireHttp = require('webpack-require-http')
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
@@ -15,6 +15,10 @@ module.exports = {
   entry: {
     app: './src/main.js'
   },
+ 
+  externals:[
+    require('webpack-require-http')
+],
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
