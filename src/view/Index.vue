@@ -6,26 +6,28 @@
     <div class="content_wrap">
       <!-- 轮播图 -->
       <el-carousel height="725px">
-        <el-carousel-item v-for="item in 4" :key="item">
-          <img src="../assets/img/banner1.png" alt="" class="data_img" />
+        <el-carousel-item v-for="(item,index) in bannerList.slice(0,4)"  :key="index">
+          <img src="../assets/img/banner1.png" alt="" class="data_img" @click="goDetail(item.banner_part_code)"/>
         </el-carousel-item>
       </el-carousel>
       <!-- 推荐产品 -->
       <div class="recommend_wrap">
         <div class="left_product">
-          <img src="../assets/img/img1.png" alt="" class="data_img" />
+          <img src="../assets/img/img1.png" alt="" class="data_img" @click="goDetail(bannerList[4].banner_part_code)"/>
         </div>
         <div class="right_product">
-          <img src="../assets/img/img2.png" alt="" class="img_pro_class1" />
+          <img src="../assets/img/img2.png" alt="" class="img_pro_class1" @click="goDetail(bannerList[5].banner_part_code)"/>
           <img
             src="../assets/img/img2.png"
             alt=""
             class="img_pro_class img_pro_class2"
+            @click="goDetail(bannerList[6].banner_part_code)"
           />
           <img
             src="../assets/img/img2.png"
             alt=""
             class="img_pro_class img_pro_class2"
+            @click="goDetail(bannerList[7].banner_part_code)"
           />
         </div>
       </div>
@@ -46,9 +48,9 @@
         @tab-click="handleClick"
         class="checkpro_tabs"
       >
-        <el-tab-pane label="HotSale" name="first"></el-tab-pane>
-        <el-tab-pane label="Classic" name="second"></el-tab-pane>
-        <el-tab-pane label="NewDesign" name="third"></el-tab-pane>
+        <el-tab-pane label="HotSale" name="HotSale"></el-tab-pane>
+        <el-tab-pane label="Classic" name="Classic"></el-tab-pane>
+        <el-tab-pane label="NewDesign" name="NewDesign"></el-tab-pane>
       </el-tabs>
       <!-- 产品列表 -->
       <div class="data_wrap clearfix">
@@ -96,33 +98,53 @@ export default {
   },
   data() {
     return {
-      activeName: "first",
+      activeName: "HotSale",
+      bannerList:[],
+      subjectList:[]
     };
   },
-  created(){
+  created() {
+    this.getSubData();
+     // 获取banner
+    this.$api
+      .GetBanner({
+        ReqFunc: "GetBanner",
+        ReqCode: "",
+      })
+      .then((res) =>{
+        if(res.length>0){
+this.bannerList = res
+        }
+      })
+      .catch((err) => console.log(err));
   },
-  
+
   methods: {
     handleClick(tab, event) {
-      console.log(tab, event);
+      this.getSubData();
     },
-   
+    // 获取专题
+    getSubData() {
+      this.$api
+        .GetSubject({
+          ReqFunc: "GetSubject",
+          ReqCode: this.activeName,
+        })
+        .then((res) => {
+          if(res.length>0){
+this.subjectList = res
+          }
+        })
+        .catch((err) => console.log(err));
+    },
+    // 进入详情
+    goDetail(code){
+console.log(code)
+    },
   },
   mounted() {
-    // 存cookie guid
-    //  if (this.$cookies.get("guid") == null) {
-    //             this.$cookies.set("guid", this.NewGuid(),'30d')
-    //             this.$router.push({path:'/'})
-    //         }
-  // 获取banner
-this.$api.GetBanner({  
-		ReqFunc:"GetBanner",
-		ReqCode:''
-	}).then(res => console.log(res)).catch(err => console.log(err))
-
-
-
-  }
+   
+  },
 };
 </script>
 <style>
