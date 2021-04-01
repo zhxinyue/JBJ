@@ -191,12 +191,29 @@ export default {
       num: 1,
     };
   },
+  created(){
+    this.GetSubSku()
+  },
   methods: {
     handleClick(tab, event) {
       console.log(tab, event);
     },
     handleChange(value) {
       console.log(value);
+    },
+    //获得子Sku详细信息
+    GetSubSku(){
+    this.$api
+      .GetBanner({
+       ReqFunc:"GetSubSku",
+		ReqGuid:this.Plugins.getItem("subject_guid"),
+		MoneyCode:'MXN PESOS'
+      })
+      .then((res) => {
+        console.log(res)
+        
+      })
+      .catch((err) => console.log(err));
     },
   },
 };

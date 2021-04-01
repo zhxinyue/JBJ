@@ -6,17 +6,35 @@
     <div class="content_wrap">
       <!-- 轮播图 -->
       <el-carousel height="725px">
-        <el-carousel-item v-for="(item,index) in bannerList.slice(0,4)"  :key="index">
-          <img src="../assets/img/banner1.png" alt="" class="data_img" @click="goDetail(item.banner_part_code)"/>
+        <el-carousel-item
+          v-for="(item, index) in bannerList.slice(0, 4)"
+          :key="index"
+        >
+          <img
+            src="../assets/img/banner1.png"
+            alt=""
+            class="data_img"
+            @click="goDetail(item.banner_part_code)"
+          />
         </el-carousel-item>
       </el-carousel>
       <!-- 推荐产品 -->
       <div class="recommend_wrap">
         <div class="left_product">
-          <img src="../assets/img/img1.png" alt="" class="data_img" @click="goDetail(bannerList[4].banner_part_code)"/>
+          <img
+            src="../assets/img/img1.png"
+            alt=""
+            class="data_img"
+            @click="goDetail(bannerList[4].banner_part_code)"
+          />
         </div>
         <div class="right_product">
-          <img src="../assets/img/img2.png" alt="" class="img_pro_class1" @click="goDetail(bannerList[5].banner_part_code)"/>
+          <img
+            src="../assets/img/img2.png"
+            alt=""
+            class="img_pro_class1"
+            @click="goDetail(bannerList[5].banner_part_code)"
+          />
           <img
             src="../assets/img/img2.png"
             alt=""
@@ -54,8 +72,8 @@
       </el-tabs>
       <!-- 产品列表 -->
       <div class="data_wrap clearfix">
-        <div class="data_content" v-for="item in 12" :key="item">
-          <div class="img_wrap">
+        <div class="data_content" v-for="(item,index) in subjectList" :key="index">
+          <div class="img_wrap" @click="goDetail(item.subject_guid)" >
             <img src="../assets/img/img4.png" alt="" class="data_img" />
           </div>
           <div class="minimg_wrap">
@@ -99,21 +117,21 @@ export default {
   data() {
     return {
       activeName: "HotSale",
-      bannerList:[],
-      subjectList:[]
+      bannerList: [],
+      subjectList: [],
     };
   },
   created() {
     this.getSubData();
-     // 获取banner
+    // 获取banner
     this.$api
       .GetBanner({
         ReqFunc: "GetBanner",
         ReqCode: "",
       })
-      .then((res) =>{
-        if(res.length>0){
-this.bannerList = res
+      .then((res) => {
+        if (res.length > 0) {
+          this.bannerList = res;
         }
       })
       .catch((err) => console.log(err));
@@ -131,20 +149,20 @@ this.bannerList = res
           ReqCode: this.activeName,
         })
         .then((res) => {
-          if(res.length>0){
-this.subjectList = res
+          if (res.length > 0) {
+            this.subjectList = res;
           }
         })
         .catch((err) => console.log(err));
     },
     // 进入详情
-    goDetail(code){
-console.log(code)
+    goDetail(code) {
+      console.log(code);
+      this.Plugins.setItem("subject_guid", code);
+      this.$router.push({ path: "/detail" });
     },
   },
-  mounted() {
-   
-  },
+  mounted() {},
 };
 </script>
 <style>
