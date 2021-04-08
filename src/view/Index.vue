@@ -74,23 +74,14 @@
       <div class="data_wrap clearfix">
         <div class="data_content" v-for="(item,index) in subjectList" :key="index">
           <div class="img_wrap" @click="goDetail(item.subject_guid)" >
-            <img src="../assets/img/img4.png" alt="" class="data_img" />
+            <img :src="item.subsku[currentIdx].pic_url" alt="" class="data_img" />
           </div>
-          <div class="minimg_wrap">
-            <img src="../assets/img/img5.png" alt="" class="data_min_img" />
-            <img
-              src="../assets/img/img5.png"
-              alt=""
-              class="data_min_img active"
-            />
-            <img src="../assets/img/img5.png" alt="" class="data_min_img" />
-            <img src="../assets/img/img5.png" alt="" class="data_min_img" />
-            <img src="../assets/img/img5.png" alt="" class="data_min_img" />
-            <img src="../assets/img/img5.png" alt="" class="data_min_img" />
+          <div class="minimg_wrap" v-for="(itm,idx) in item.subsku" :key="idx">
+            <img :src="itm.pic_url" alt="" :class="[currentIdx==idx?'active':'','data_min_img']" @click="changeImg(idx)" />
           </div>
           <div class="data_money">
-            <span class="present_price">$50.00</span>
-            <span class="original_price">$80.00</span>
+            <span class="present_price">$</span>
+            <span class="original_price">$</span>
           </div>
           <div class="data_dec">
             JiaBinji Women's Clear Pumps Pointed Toe Transparent High Heels
@@ -116,9 +107,11 @@ export default {
   },
   data() {
     return {
-      activeName: "HotSale",
+      activeName: "Classic",
       bannerList: [],
       subjectList: [],
+      currentIdx:0,
+      currentImg:''
     };
   },
   created() {
@@ -135,18 +128,35 @@ export default {
         }
       })
       .catch((err) => console.log(err));
+      if(!this.Plugins.getItem("ReqGuid")){
+      this.Plugins.setItem("ReqGuid",this.Plugins.NewGuid())
+
+      }
   },
 
   methods: {
     handleClick(tab, event) {
       this.getSubData();
     },
+    // 专题点击小图
+  changeImg(e){
+this.currentIdx = e
+  },
     // 获取专题
     getSubData() {
       this.$api
         .GetSubject({
-          ReqFunc: "GetSubject",
-          ReqCode: this.activeName,
+        ReqFunc:"GetSubjectSku",
+		SubjectCode:this.activeName,	//为空时代表全部
+		MoneyCode:'GBP',	//货币
+		RandomNo:'31',		//4位以下随机数
+		ReqPage:'1',
+		ReqStep:'25',
+		style:'pump',		//可不写
+		heel:'10'	,			//可不写
+		color:'Brown-Nude Liner',			//可不写
+		size:'5',			//可不写
+		materia:'Suede'		//可不写
         })
         .then((res) => {
           if (res.length > 0) {

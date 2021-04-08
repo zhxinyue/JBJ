@@ -206,8 +206,8 @@ export default {
     this.$api
       .GetBanner({
        ReqFunc:"GetSubSku",
-		ReqGuid:this.Plugins.getItem("subject_guid"),
-		MoneyCode:'MXN PESOS'
+		ReqGuid:this.Plugins.getItem("ReqGuid"),
+		MoneyCode:'GBP'
       })
       .then((res) => {
         console.log(res)
