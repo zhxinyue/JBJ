@@ -29,31 +29,47 @@
             <img src="../assets/img/img5.png" alt="" class="left_min_img" />
           </div>
         </div>
-        <div class="center_wrap">
+        <div class="center_wrap" v-if="proDetail.length > 0">
           <h3 class="detail_h3">
-            JiaBinjiWomen'sClearPumpsPointedToeTransparent
-            HighHeelsWeddingShoesForWomenStilettoHeels
+            {{ proDetail[0].subsku_name }}
           </h3>
           <div class="price_div">
-            Price: <span class="current_price">$50.00</span
-            ><span class="original_price">$50.00</span>
+            Price:
+            <span class="current_price">${{ proDetail[0].realprice }}</span
+            ><span class="original_price">${{ proDetail[0].disprice }}</span>
           </div>
           <div class="size_div">
             <h3 class="size_h3">Size:</h3>
-            <!-- 选择尺寸 -->
-            <el-select v-model="value" placeholder="Please Select">
+            <!-- 选择尺寸 修改尺寸调用查看材质接口-->
+            <el-select v-model="sizeValue" placeholder="Please Select" @change="getMateria()">
               <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+                v-for="item in sizeList"
+                :key="item.size"
+                :label="item.size"
+                :value="item.size"
               >
               </el-option>
             </el-select>
           </div>
+<div class="size_div">
+            <h3 class="size_h3">Materia:</h3>
+            <!-- 选择尺寸 -->
+            <el-select v-model="materiaValue" placeholder="Please Select">
+              <el-option
+                v-for="item in materiaList"
+                :key="item.materia"
+                :label="item.materia"
+                :value="item.materia"
+              >
+              </el-option>
+            </el-select>
+          </div>
+
           <!-- 选择颜色 -->
           <div class="color_div">
-            <h3 class="size_h3">Color: <span class="color_span">red</span></h3>
+            <h3 class="size_h3">
+              Color: <span class="color_span">{{ proDetail[0].color }}</span>
+            </h3>
             <div class="color_wrap clearfix">
               <img
                 src="../assets/img/img5.png"
@@ -97,12 +113,11 @@
           </div>
 
           <!-- 轮播图 -->
-      <el-carousel height="200px">
-        <el-carousel-item v-for="item in 4" :key="item">
-          <img src="../assets/img/banner1.png" alt="" class="data_img" />
-        </el-carousel-item>
-      </el-carousel>
-
+          <el-carousel height="200px">
+            <el-carousel-item v-for="item in 4" :key="item">
+              <img src="../assets/img/banner1.png" alt="" class="data_img" />
+            </el-carousel-item>
+          </el-carousel>
         </div>
       </div>
       <!-- 更多推荐 -->
@@ -177,23 +192,23 @@ export default {
   },
   data() {
     return {
-      options: [
-        {
-          value: "选项1",
-          label: "黄金糕",
-        },
-        {
-          value: "选项2",
-          label: "双皮奶",
-        },
-      ],
-      value: "",
+     
       num: 1,
+      proDetail: [],
+      sizeList: [],//尺寸
+      sizeValue: "",
+      materiaList:[],//材质
+      materiaValue: "",
+      colorList: [],//颜色
+      colorValue: "",
+
     };
   },
-  created(){
-    this.GetSubSku()
+  created() {
+    //获得子Sku详细信息
+    this.GetSubSku();
   },
+
   methods: {
     handleClick(tab, event) {
       console.log(tab, event);
@@ -201,20 +216,67 @@ export default {
     handleChange(value) {
       console.log(value);
     },
-    //获得子Sku详细信息
-    GetSubSku(){
-    this.$api
-      .GetBanner({
-       ReqFunc:"GetSubSku",
-		ReqGuid:this.Plugins.getItem("ReqGuid"),
-		MoneyCode:'GBP'
-      })
-      .then((res) => {
-        console.log(res)
-        
-      })
-      .catch((err) => console.log(err));
+    GetSubSku() {
+      this.$api
+        .GetSubSku({
+          ReqFunc: "GetSubSku",
+          ReqGuid: this.Plugins.getItem("subject_guid"),
+          MoneyCode: "GBP",
+        })
+        .then((res) => {
+          console.log(res);
+          this.proDetail = res;
+          //获得Size
+          this.getSize();
+          
+        });
     },
+    getSize() {
+      this.$api
+        .GetSubSku({
+          ReqFunc: "GetSkuSize",
+          ReqGuid: this.proDetail[0].sku_guid,
+        })
+        .then((res) => {
+          console.log(res);
+          this.sizeList = res;
+          this.sizeValue = res[0].size
+          //获得materia
+          this.getMateria()
+        });
+    },
+    getMateria(){
+      this.$api
+        .GetSubSku({
+          ReqFunc: "GetSkuMateria",
+          ReqGuid: this.proDetail[0].sku_guid,
+		      size:this.sizeValue
+        })
+        .then((res) => {
+          console.log(res);
+          this.materiaList = res;
+          this.materiaValue = res[0].materia
+          //获得Color
+          this.getColor()
+        });
+    },
+    getColor(){
+this.$api
+        .GetSkuColor({
+          ReqFunc:"GetSkuColor",
+		ReqGuid:this.proDetail[0].sku_guid,
+		 size:this.sizeValue,
+		materia:this.materiaValue
+
+        })
+        .then((res) => {
+          console.log(res);
+          this.colorList = res;
+          // this.materiaValue = res[0].materia
+         
+        });
+    }
+   
   },
 };
 </script>
@@ -408,12 +470,11 @@ export default {
 .right_con_div span {
   font-size: 18px;
 }
-.right_wrap .el-carousel{
-position: absolute;
-bottom:0;
-left:0;
-width:100%;
-
+.right_wrap .el-carousel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 }
 .recommend_div {
   border-top: 1px solid #f3f2f2;
@@ -489,7 +550,7 @@ width:100%;
   width: 100%;
   height: 40px;
   line-height: 20px;
-   font-size: 16px;
+  font-size: 16px;
   word-wrap: break-word;
   white-space: normal;
   word-break: break-all;

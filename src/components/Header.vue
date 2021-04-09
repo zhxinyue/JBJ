@@ -15,7 +15,7 @@
         <img src="../assets/img/search.png" alt="" class="search_img" />
       </div>
       <!-- 导航 -->
-      <div class="nav_wrap">
+      <!-- <div class="nav_wrap">
         <el-dropdown>
           <span class="el-dropdown-link dropdown_active"> HOME </span>
         </el-dropdown>
@@ -35,7 +35,7 @@
             <el-dropdown-item icon="el-icon-plus">黄金糕</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

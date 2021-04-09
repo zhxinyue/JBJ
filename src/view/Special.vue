@@ -89,7 +89,7 @@
               Exercitation veniam consequat sunt nostrud amet.
             </p>
           </div>
-          <div class="select_div">
+          <!-- <div class="select_div">
             Sort By
             <el-dropdown @command="handleCommand">
               <span class="el-dropdown-link">
@@ -108,7 +108,7 @@
               </el-dropdown-menu>
             </el-dropdown>
             <img src="../assets/img/icon7.png" alt="" class="rise_img" />
-          </div>
+          </div> -->
           <div>
           <div class="recommend_pro2" v-for="item in 15" :key="item">
             <img src="../assets/img/img4.png" alt="" class="rec_img" />

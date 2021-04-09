@@ -21,3 +21,8 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+router.beforeEach((to,from,next)=>{　//从cookie中取值并给vux中的token赋值
+  window.scroll(0, 0);
+  next()
+ 
+})

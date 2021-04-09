@@ -73,19 +73,18 @@
       <!-- 产品列表 -->
       <div class="data_wrap clearfix">
         <div class="data_content" v-for="(item,index) in subjectList" :key="index">
-          <div class="img_wrap" @click="goDetail(item.subject_guid)" >
+          <div class="img_wrap" @click="goDetail(item.subsku[currentIdx].subsku_guid)" >
             <img :src="item.subsku[currentIdx].pic_url" alt="" class="data_img" />
           </div>
           <div class="minimg_wrap" v-for="(itm,idx) in item.subsku" :key="idx">
             <img :src="itm.pic_url" alt="" :class="[currentIdx==idx?'active':'','data_min_img']" @click="changeImg(idx)" />
           </div>
           <div class="data_money">
-            <span class="present_price">$</span>
-            <span class="original_price">$</span>
+            <span class="present_price">${{item.subsku[currentIdx].realprice}}</span>
+            <span class="original_price">${{item.subsku[currentIdx].disprice}}</span>
           </div>
           <div class="data_dec">
-            JiaBinji Women's Clear Pumps Pointed Toe Transparent High Heels
-            Wedding Shoes For Women
+            {{item.sku_name}}
           </div>
         </div>
       </div>
